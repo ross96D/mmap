@@ -103,6 +103,22 @@ func (f *File) Read(p []byte) (int, error) {
 	return n, nil
 }
 
+func (f *File) ReadNoCopy() ([]byte, error) {
+	if f == nil {
+		return nil, os.ErrInvalid
+	}
+
+	if !f.rflag() {
+		return nil, errBadFD
+	}
+	if f.c >= len(f.data) {
+		return nil, io.EOF
+	}
+	b := f.data[f.c:]
+	f.c += len(b)
+	return b, nil
+}
+
 // ReadByte implements the io.ByteReader interface.
 func (f *File) ReadByte() (byte, error) {
 	if f == nil {
