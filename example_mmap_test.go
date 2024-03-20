@@ -9,7 +9,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-mmap/mmap"
+	"github.com/ross96D/mmap"
 )
 
 func ExampleOpen() {

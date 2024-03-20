@@ -1,4 +1,4 @@
-module github.com/go-mmap/mmap
+module github.com/ross96D/mmap
 
 go 1.19
 
