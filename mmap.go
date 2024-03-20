@@ -103,7 +103,7 @@ func (f *File) Read(p []byte) (int, error) {
 	return n, nil
 }
 
-func (f *File) ReadNoCopy() ([]byte, error) {
+func (f *File) ReadNoCopy(length int) ([]byte, error) {
 	if f == nil {
 		return nil, os.ErrInvalid
 	}
@@ -114,7 +114,10 @@ func (f *File) ReadNoCopy() ([]byte, error) {
 	if f.c >= len(f.data) {
 		return nil, io.EOF
 	}
-	b := f.data[f.c:]
+	if f.c+length >= len(f.data) {
+		length = len(f.data) - f.c - 1
+	}
+	b := f.data[f.c:length]
 	f.c += len(b)
 	return b, nil
 }
